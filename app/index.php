@@ -49,7 +49,7 @@
 					
 				</tr>	
 			</thead>
-			<tbody>
+			<tbody id="init_calendar_body_table">
 				
 				<tr class="week">
 					<td class="dayTd">
@@ -132,16 +132,46 @@ var datetime = "" + currentdate.getDate() + "/"
 <!-- calendar handlers -->
 <script type="text/javascript">	
 function getDaysInMonth(month,year) {
- 	return new Date(year, month, 0).getDate();
+	var d = new Date(year, month, 0).getDate();
+ 	return d;
 
+}
+function getFirstDay(month, year){
+	var d = new Date().getDate();
+ 	return d;
 }
 function initCalendar(){
 	var number_days_month = 0;
-	var d = new Date();
-	var year = d.getFullYear();
-	var month = d.getMonth();
-	number_days_month = getDaysInMonth(month, year);
-	console.log(number_days_month);	
+	var dates = new Date();
+	var year = dates.getFullYear();
+	var month = dates.getMonth();
+	number_days_month = getDaysInMonth(month, year);	
+	console.log(number_days_month + 1 );
+	var day_one_of_month = new Date(year, month, 1).getDay();
+	var html = '';
+	for(var i = 0, j = 1; i <= number_days_month+day_one_of_month; i++ ){
+		debugger;
+		if(i==0 || i==7 || i ==7*2 || i==7*3 || i==7*4 || i==7*5){
+			html = html + '<tr class="week">';
+		}
+		if(i>= day_one_of_month){
+			 html =  html +'<td class="dayTd"><div class="dayMonth">'+j+'</div></td>';
+			 j++
+		}
+		else{
+			html = html + '<td class="dayTd"></td>';
+		}
+
+		if(i==6){
+			html = html + '</tr>';
+		}
+		
+	}
+
+	var table = document.getElementById("init_calendar_body_table");
+	table.innerHTML=html;
+
+
 }
 
 </script>
