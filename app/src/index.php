@@ -18,17 +18,26 @@
 		.dayMonth{
 			position: relative;
 			left: 90%;
-			width: 5%;
-			top: -45px;
+				width: 5%;
+				top: -35px;
+		}
+		.dayTd:hover{
+			background-color: lightgray;
+		}
+		.bgcontainer{
+			background-color: #e9ecef;
 		}
 	</style>
 </head>
-<body class="bg-light text-dark">
-	<div style="width: 80%; height: 100%; margin-left: 10%; margin-right: 10%; background-color: Lavender;">
-		<h4>¡Bienvenido!</h4>
+<body class="bgcontainer">
+	<div style="width: 80%; height: 100%; margin-left: 10%; margin-right: 10%; background-color: white;">
+		<div  class="bgcontainer">
+			<h4>¡Bienvenido!</h4>
 		<h3 id="idhour"> </h3>
+		</div>
+		
 		<center>
-		<div class="btn-group"  role="group" aria-label="Basic example">
+		<div class="btn-group" style="background-color: #e9ecef; "  role="group" aria-label="Basic example">
 		  <button type="button" onclick="inicio()" class="btn btn-primary">Inicio</button>
 		  <button type="button" class="btn btn-primary">Administracion de Calendario</button>
 		  <button type="button" class="btn btn-primary">Reportes</button>
@@ -150,12 +159,11 @@ function initCalendar(){
 	var day_one_of_month = new Date(year, month, 1).getDay();
 	var html = '';
 	for(var i = 0, j = 1; i <= number_days_month+day_one_of_month; i++ ){
-		debugger;
 		if(i==0 || i==7 || i ==7*2 || i==7*3 || i==7*4 || i==7*5){
 			html = html + '<tr class="week">';
 		}
 		if(i>= day_one_of_month){
-			 html =  html +'<td class="dayTd"><div class="dayMonth">'+j+'</div></td>';
+			 html =  html +'<td class="dayTd" id="rw_'+j+'" onmouseover="showAddButton('+year +','+ month+','+ j+ ')" onmouseout="hideAddButton('+year +','+ month+','+ j+ ')"><div class="dayMonth">'+j+'</div><div class="row"><img onclick="addEvent('+year +','+ month+','+ j+ ')"src="./img/addicon.png" id="img_'+year+month+j+'" style="position: relative; width: 30%; height:30%; left: 15%; top:0%; display:none"></img><img onclick="viewDayEvents('+year +','+ month+','+ j+ ')" src="./img/visibility.png" id="img_v'+year+month+j+'" style="position: relative; width: 30%; height:30%; left: 30%; top:0%; display:none"></img></div></td>';
 			 j++
 		}
 		else{
@@ -174,5 +182,41 @@ function initCalendar(){
 
 }
 
+</script>
+
+
+<!-- Scrip para crear eventos -->
+
+
+<script type="text/javascript">
+	function showAddButton(a, m, d){
+
+		var img = document.getElementById("img_"+a+m+d);
+		img.style.display = 'block';
+
+		var img2 = document.getElementById("img_v"+a+m+d);
+		img2.style.display = 'block';
+
+		
+	}
+	function hideAddButton(a, m, d){
+		var img = document.getElementById("img_"+a+m+d);
+		img.style.display = 'none';
+
+		var img2 = document.getElementById("img_v"+a+m+d);
+		img2.style.display = 'none';
+
+	}
+
+	function addEvent(a, m, d){
+		console.log("Agregar eventi");
+		location.href = "agregarevento.php?year="+a+"&month="+m+"day"+d;
+
+	}
+	function viewDayEvents(a, m, d){
+		console.log("Ver eventos del dia");
+		location.href = "verevento.php?year="+a+"&month="+m+"day"+d;
+
+	}
 </script>
 </html>
