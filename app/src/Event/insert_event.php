@@ -14,6 +14,7 @@
                 <b>Tipo de Evento: </b>
 
                 <?php
+
                     $link = pg_connect("host=localhost port=5432 dbname=calendario user=postgres password=postgres") or die ("Error: Unable to connect database");
 
                     $query = "SELECT * FROM tipoeventos ORDER BY id_tipo";
@@ -37,7 +38,7 @@
                 <input type="text" name="descripcion" required><br><br>
 
                 <b>Fecha de Inicio: </b>
-                <input type="date" name="fechainicio" required><br><br>
+                <input type="date" name="fechainicio" value="<?php echo $_GET['year'] . '-'.  $_GET['month'] .'-' .  $_GET['day']   ?>" required><br><br>
 
                 <b>Fecha Fin: </b>
                 <input type="date" name="fechafin" required><br><br>

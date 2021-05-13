@@ -158,11 +158,13 @@ function initCalendar(){
 	console.log(number_days_month + 1 );
 	var day_one_of_month = new Date(year, month, 1).getDay();
 	var html = '';
+	month = month+1;
 	for(var i = 0, j = 1; i <= number_days_month+day_one_of_month; i++ ){
 		if(i==0 || i==7 || i ==7*2 || i==7*3 || i==7*4 || i==7*5){
 			html = html + '<tr class="week">';
 		}
 		if(i>= day_one_of_month){
+			
 			 html =  html +'<td class="dayTd" id="rw_'+j+'" onmouseover="showAddButton('+year +','+ month+','+ j+ ')" onmouseout="hideAddButton('+year +','+ month+','+ j+ ')"><div class="dayMonth">'+j+'</div><div class="row"><img onclick="addEvent('+year +','+ month+','+ j+ ')"src="./img/addicon.png" id="img_'+year+month+j+'" style="position: relative; width: 30%; height:30%; left: 15%; top:0%; display:none"></img><img onclick="viewDayEvents('+year +','+ month+','+ j+ ')" src="./img/visibility.png" id="img_v'+year+month+j+'" style="position: relative; width: 30%; height:30%; left: 30%; top:0%; display:none"></img></div></td>';
 			 j++
 		}
@@ -209,13 +211,18 @@ function initCalendar(){
 	}
 
 	function addEvent(a, m, d){
-		console.log("Agregar eventi");
-		location.href = "agregarevento.php?year="+a+"&month="+m+"day"+d;
+		if(d<10){
+			d = "0"+d;
+		}
+		if(m<10){
+			m = "0"+m;
+		}
+		location.href = "./Event/insert_event.php?year="+a+"&month="+m+"&day="+d;
 
 	}
 	function viewDayEvents(a, m, d){
 		console.log("Ver eventos del dia");
-		location.href = "verevento.php?year="+a+"&month="+m+"day"+d;
+		location.href = "verevento.php?year="+a+"&month="+m+"&day="+d;
 
 	}
 </script>
