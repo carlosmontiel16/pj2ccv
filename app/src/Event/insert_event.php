@@ -34,9 +34,9 @@
     <body>
         <center>
             <h3>Insertar Evento </h3>
-            <form action="insertEve.php" method="get">
+            <form id="formeventos">
                 <b>Id del Evento: </b>
-                <input type="number" name="id_evento" min=1 required><br><br>
+                <input type="number" id="id_evento" min=1 required><br><br>
 
                 <b>Tipo de Evento: </b>
 
@@ -46,7 +46,7 @@
                     $query = "SELECT * FROM tipoevento ORDER BY id_tipo";
                     $result = pg_query($link,$query) or die ("Query failed" . pg_errormessage($link));
 
-                    echo "<select name=id_tipo>\n";
+                    echo "<select id=id_tipo>\n";
                     while($line = pg_fetch_array($result,null,PGSQL_ASSOC)){
                         $id_tipo = $line["id_tipo"];
                         $nombre = $line["nombre"];
@@ -58,19 +58,19 @@
                 ?><br><br>
                 
                 <b>Titulo del Evento: </b>
-                <input type="text" name="titulo" required><br><br>
+                <input type="text" id="titulo" required><br><br>
 
                 <b>Descripcion: </b>
-                <input type="text" name="descripcion" required><br><br>
+                <input type="text" id="descripcion" required><br><br>
 
                 <b>Fecha de Inicio: </b>
-                <input type="date" readonly="true" name="fechainicio" value="<?php echo $_GET['year'] . '-'.  $_GET['month'] .'-' .  $_GET['day']   ?>" required><br><br>
+                <input type="date" readonly="true" id="fechainicio" value="<?php echo $_GET['year'] . '-'.  $_GET['month'] .'-' .  $_GET['day']   ?>" required><br><br>
 
                 <b>Fecha Fin: </b>
-                <input type="date" name="fechafin" required><br><br>
+                <input type="date" id="fechafin" required><br><br>
 
                 <b>Hora: </b>
-                <input type="time" name="hora" required><br><br>
+                <input type="time" id="hora" required><br><br>
                 <b>Frecuencia: </b>
                 <select id="select_frecuencia" name="frecuencia" onchange="showMiniCalendar();">
                     <option value="U">Una sola vez</option>
@@ -126,7 +126,7 @@
 
                 <input type="submit" value="Enviar">
             </form>
-            <button onclick="self.close()">Cerrar</button>
+            <button onclick="sendInformation()">Cerrar</button>
         </center>
     </body>
     <script type="text/javascript">
@@ -144,6 +144,10 @@
             
                 document.getElementById("containtable").style.display = "block";
                             }
+                            else{
+                              document.getElementById("containtable").style.display = "none";  
+
+                            }
         }
         function addFrecuenciaAlterna(p, e){
             this.objeto_alterno[p] = !this.objeto_alterno[p];
@@ -160,6 +164,34 @@
             }
                
                 
+        }
+
+        function sendInformation(){
+            var id = document.getElementById("id_evento").value;
+            var id_tipo = document.getElementById("id_tipo").value;
+            var titulo = document.getElementById("titulo").value;
+            var desc = document.getElementById("descripcion").value;
+            var fecha_inicio = document.getElementById("fechainicio").value;
+            var fecha_fin = document.getElementById("fechafin").value;
+            var hora = document.getElementById("hora").value;
+            var frecuencia = document.getElementById("select_frecuencia").value;
+            var json = JSON.stringify(this.objeto_alterno);
+            var req = new XMLHttpRequest();
+
+            req.open('GET', './insertar_eventos_api.php?id='+id+'&id_tipo='+id_tipo+'&titulo='+titulo+'&desc='+desc+'&fecha_inicio='+fecha_inicio+'&fecha_fin='+fecha_fin+'&hora='+hora+'&frecuencia='+frecuencia+'&obj='+this.objeto_alterno, true);
+            req.onreadystatechange = function (aEvt) {
+              if (req.readyState == 4) {
+                 if(req.status == 200)
+                  dump(req.responseText);
+                if(req.responseText == "true"){
+                    alert("Evento agregado exitosamente");
+                    location.href= '../';
+                }
+                 else
+                  dump("Error loading page\n");
+              }
+            };
+            req.send(null); 
         }
     </script>
 </html>

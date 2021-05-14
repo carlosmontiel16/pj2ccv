@@ -1,10 +1,10 @@
 CREATE TABLE TipoEvento(
-	id_tipo integer,
+	id_tipo serial,
 	nombre char(30),
 	PRIMARY KEY (id_tipo)
 );
 CREATE TABLE Eventos(
-	id_evento integer,
+	id_evento serial,
 	id_tipo integer NOT NULL,
 	frecuencia char(1),
 	titulo_evento char(40),
@@ -23,10 +23,7 @@ CREATE TABLE Eventos(
 -- M mensual
 -- A anual
 -- O días alternos
-
-INSERT INTO TipoEvento VALUES (5,'Pago');
-INSERT INTO Eventos VALUES (1,1,'A','Cumpleaños Sobrina','Cumpleaños Emely, almuerzo','04-05-2021','04-05-2021','12:30:00');
-INSERT INTO Eventos VALUES (2,3,'A','Feria de Jocotenango','Feria en el hipodromo','08-15-2021','08-15-2021','08:00:00');
-
+INSERT INTO TipoEvento(nombre) VALUES ('Cumple');
+insert into Eventos(id_tipo, frecuencia, titulo_Evento, descripcion, fecha_inicio, fecha_fin, hora) VALUES(1,'A','Cumpleaños Sobrina','Cumpleaños Emely, almuerzo','04-05-2021','04-05-2021','12:30:00');
 select * from TipoEvento;
 select * from Eventos;
