@@ -35,9 +35,7 @@
         <center>
             <h3>Insertar Evento </h3>
             <form id="formeventos">
-                <b>Id del Evento: </b>
-                <input type="number" id="id_evento" min=1 required><br><br>
-
+           
                 <b>Tipo de Evento: </b>
 
                 <?php
@@ -124,9 +122,10 @@
             </table>
                 </div>
 
-                <input type="submit" value="Enviar">
+               
             </form>
-            <button onclick="sendInformation()">Cerrar</button>
+            <button onclick="sendInformation()">Agregar</button>
+            <button onclick="location.href='../'">Cerrar</button>
         </center>
     </body>
     <script type="text/javascript">
@@ -167,7 +166,7 @@
         }
 
         function sendInformation(){
-            var id = document.getElementById("id_evento").value;
+            //var id = document.getElementById("id_evento").value;
             var id_tipo = document.getElementById("id_tipo").value;
             var titulo = document.getElementById("titulo").value;
             var desc = document.getElementById("descripcion").value;
@@ -176,9 +175,10 @@
             var hora = document.getElementById("hora").value;
             var frecuencia = document.getElementById("select_frecuencia").value;
             var json = JSON.stringify(this.objeto_alterno);
+
             var req = new XMLHttpRequest();
 
-            req.open('GET', './insertar_eventos_api.php?id='+id+'&id_tipo='+id_tipo+'&titulo='+titulo+'&desc='+desc+'&fecha_inicio='+fecha_inicio+'&fecha_fin='+fecha_fin+'&hora='+hora+'&frecuencia='+frecuencia+'&obj='+this.objeto_alterno, true);
+            req.open('GET', './insertar_eventos_api.php?id='+'1'+'&id_tipo='+id_tipo+'&titulo='+titulo+'&desc='+desc+'&fecha_inicio='+fecha_inicio+'&fecha_fin='+fecha_fin+'&hora='+hora+'&frecuencia='+frecuencia+'&obj='+json, true);
             req.onreadystatechange = function (aEvt) {
               if (req.readyState == 4) {
                  if(req.status == 200)
