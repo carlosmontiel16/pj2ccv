@@ -190,7 +190,7 @@ function initCalendar(year, month){
 		if(i==0 || i==7 || i ==7*2 || i==7*3 || i==7*4 || i==7*5){
 			html = html + '<tr class="week">';
 		}
-		if(i>= day_one_of_month){
+		if(i>= day_one_of_month && j <32){
 	
 			  if(arr_of_fetched.includes(j)){
 			  	console.log(j);
