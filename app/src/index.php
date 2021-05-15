@@ -170,6 +170,7 @@ function initCalendar(year, month){
 	month = month+1;
 	var req = new XMLHttpRequest();
 	var fetched_dates;
+	var arr_of_fetched = new Array();
 
             req.open('GET', './Event/get_dates.php?month='+month+'&year='+year, true);
             req.onreadystatechange = function (aEvt) {
@@ -178,24 +179,27 @@ function initCalendar(year, month){
                   dump(req.responseText);
                 if(req.responseText !== "false"){
                     fetched_dates = JSON.parse(req.responseText);
-                   console.log(fetched_dates);
 
-
-                }
-                 else
-                  dump("Error loading page\n");
-              }
-            };
-            req.send(null); 
-
-
-	for(var i = 0, j = 1; i <= number_days_month+day_one_of_month; i++ ){
+                    for (var key in fetched_dates) {
+				    if (fetched_dates.hasOwnProperty(key)) {
+				        var s = fetched_dates[key].substring(fetched_dates[key].length-2)
+				        arr_of_fetched.push(parseFloat(s));
+				    }
+				}
+				for(var i = 0, j = 1; i <= number_days_month+day_one_of_month; i++ ){
 		if(i==0 || i==7 || i ==7*2 || i==7*3 || i==7*4 || i==7*5){
 			html = html + '<tr class="week">';
 		}
 		if(i>= day_one_of_month){
+	
+			  if(arr_of_fetched.includes(j)){
+			  	console.log(j);
+			  	 html =  html +'<td class="dayTd" id="rw_'+j+'" onmouseover="showAddButton('+year +','+ month+','+ j+ ')" onmouseout="hideAddButton('+year +','+ month+','+ j+ ')"><div class="dayMonth">'+j+'</div><div class="row"><img onclick="addEvent('+year +','+ month+','+ j+ ')"src="./img/addicon.png" id="img_'+year+month+j+'" style="position: relative; width: 30%; height:30%; left: 15%; top:0%; display:none"></img><img onclick="viewDayEvents('+year +','+ month+','+ j+ ')" src="./img/visibility.png" id="img_v'+year+month+j+'" style="position: relative; width: 30%; height:30%; left: 30%; top:0%; display:none"></img></div><div class="row" style=" position: relative; left: 20px; top:20px; border-radius: 90%; width: 9px; height:9px; background:aqua; border: 1px solid blue; "></></td>';
+			  }
+			  else{
+			  	 html =  html +'<td class="dayTd" id="rw_'+j+'" onmouseover="showAddButton('+year +','+ month+','+ j+ ')" onmouseout="hideAddButton('+year +','+ month+','+ j+ ')"><div class="dayMonth">'+j+'</div><div class="row"><img onclick="addEvent('+year +','+ month+','+ j+ ')"src="./img/addicon.png" id="img_'+year+month+j+'" style="position: relative; width: 30%; height:30%; left: 15%; top:0%; display:none"></img><img onclick="viewDayEvents('+year +','+ month+','+ j+ ')" src="./img/visibility.png" id="img_v'+year+month+j+'" style="position: relative; width: 30%; height:30%; left: 30%; top:0%; display:none"></img></div></td>';
+			  }                
 			
-			 html =  html +'<td class="dayTd" id="rw_'+j+'" onmouseover="showAddButton('+year +','+ month+','+ j+ ')" onmouseout="hideAddButton('+year +','+ month+','+ j+ ')"><div class="dayMonth">'+j+'</div><div class="row"><img onclick="addEvent('+year +','+ month+','+ j+ ')"src="./img/addicon.png" id="img_'+year+month+j+'" style="position: relative; width: 30%; height:30%; left: 15%; top:0%; display:none"></img><img onclick="viewDayEvents('+year +','+ month+','+ j+ ')" src="./img/visibility.png" id="img_v'+year+month+j+'" style="position: relative; width: 30%; height:30%; left: 30%; top:0%; display:none"></img></div></td>';
 			 j++
 		}
 		else{
@@ -207,9 +211,19 @@ function initCalendar(year, month){
 		}
 		
 	}
-
 	var table = document.getElementById("init_calendar_body_table");
 	table.innerHTML=html;
+                }
+                 else
+                  dump("Error loading page\n");
+              }
+            };
+            req.send(null); 
+
+
+	
+
+	
 
 
 }
