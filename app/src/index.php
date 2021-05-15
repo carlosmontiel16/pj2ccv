@@ -37,11 +37,13 @@
 		</div>
 		
 		<center>
-		<div class="btn-group" style="background-color: #e9ecef; "  role="group" aria-label="Basic example">
-		  <button type="button" onclick="inicio()" class="btn btn-primary">Inicio</button>
-		  <button type="button" class="btn btn-primary">Administracion de Calendario</button>
-		  <button type="button" class="btn btn-primary">Reportes</button>
-		</div>
+	
+		  <button id="btn_minus" class="btn btn-primary" onclick="minusYear()">-</button><label id="idyear">2021</label><button id="btn_plus" class="btn btn-primary" onclick="plusYear()">+</button>
+		  <br>
+		  <br>
+		  <button id="btn_minus" class="btn btn-primary" onclick="minusMonth()">-</button><label id="idmonth">Mayo</label><button id="btn_plus" class="btn btn-primary" onclick="plusMonth()">+</button>
+		  <div hidden="true"  id="monthnumber">4</div>
+	
 
 		<br><br>
 		<div class="calendar">
@@ -97,7 +99,7 @@
 <script type="text/javascript">
 	window.onload = function() {
   initHour();
-  initCalendar();
+  initCalendar(null, null);
 
 };
 function initHour(){
@@ -149,9 +151,16 @@ function getFirstDay(month, year){
 	var d = new Date().getDate();
  	return d;
 }
-function initCalendar(){
+function initCalendar(year, month){
 	var number_days_month = 0;
-	var dates = new Date();
+	var dates;
+	if(year !== null && month !== null){
+		dates = new Date(year, month)
+	}
+	else{
+		dates = new Date();
+	}
+	
 	var year = dates.getFullYear();
 	var month = dates.getMonth();
 	number_days_month = getDaysInMonth(month, year);	
@@ -159,6 +168,27 @@ function initCalendar(){
 	var day_one_of_month = new Date(year, month, 1).getDay();
 	var html = '';
 	month = month+1;
+	var req = new XMLHttpRequest();
+	var fetched_dates;
+
+            req.open('GET', './Event/get_dates.php?month='+month+'&year='+year, true);
+            req.onreadystatechange = function (aEvt) {
+              if (req.readyState == 4) {
+                 if(req.status == 200)
+                  dump(req.responseText);
+                if(req.responseText !== "false"){
+                    fetched_dates = JSON.parse(req.responseText);
+                   console.log(fetched_dates);
+
+
+                }
+                 else
+                  dump("Error loading page\n");
+              }
+            };
+            req.send(null); 
+
+
 	for(var i = 0, j = 1; i <= number_days_month+day_one_of_month; i++ ){
 		if(i==0 || i==7 || i ==7*2 || i==7*3 || i==7*4 || i==7*5){
 			html = html + '<tr class="week">';
@@ -226,4 +256,103 @@ function initCalendar(){
 
 	}
 </script>
+
+	<!-- script para refrescar el inicio -->
+	<script type="text/javascript">
+	function minusYear(){
+		var n = document.getElementById("idyear").innerHTML;
+		n = parseFloat(n);
+
+		document.getElementById("idyear").innerHTML = n - 1;
+		callCalendar();
+	}	
+	function plusYear(){
+		var n = document.getElementById("idyear").innerHTML;
+		n = parseFloat(n);
+		document.getElementById("idyear").innerHTML = n+1;
+		callCalendar();
+
+	}
+	function minusMonth(){
+		var month_number = document.getElementById("monthnumber").innerHTML;
+		var month_string = document.getElementById("idmonth");
+
+		monthnumber = parseFloat(month_number);
+
+		monthnumber = monthnumber -1;
+		if(monthnumber<0){
+			monthnumber = monthnumber+1;
+		}
+		document.getElementById("monthnumber").innerHTML = monthnumber;
+		month_string.innerHTML = this.numberToMonth(monthnumber);
+
+		callCalendar();
+
+	}
+	function plusMonth(){
+		var month_number = document.getElementById("monthnumber").innerHTML;
+		var month_string = document.getElementById("idmonth");
+
+		monthnumber = parseFloat(month_number);
+
+		monthnumber = monthnumber +1;
+		if(monthnumber>11){
+			monthnumber = monthnumber-1;
+		}
+
+		document.getElementById("monthnumber").innerHTML = monthnumber;
+		month_string.innerHTML = numberToMonth(monthnumber);
+
+		callCalendar();
+
+	}
+	function callCalendar(){
+		var n = document.getElementById("idyear").innerHTML;
+		n = parseFloat(n);
+		var month_number = document.getElementById("monthnumber").innerHTML;
+		monthnumber = parseFloat(month_number);
+		initCalendar(n, monthnumber);
+	}
+	function numberToMonth(p){
+				switch(p){
+			case 0:
+			return "Enero";
+			break;
+			case 1:
+			return "Febrero";
+			break;
+			case 2:
+			return "Marzo";
+			break;
+			case 3:
+			return "Abril";
+			break;
+			case 4:
+			return "Mayo";
+			break;
+			case 5:
+			return "Junio";
+			break;
+			case 6:
+			return "Julio";
+			break;
+			case 7:
+			return "Agosto";
+			break;
+			case 8:
+			return "Septiembre";
+			break;
+			case 9:
+			return "Octubre";
+			break;
+			case 10:
+			return "Noviembre";
+			break;
+			case 11:
+			return "Diciembre";
+			break;
+		}
+	}
+	</script>
+
 </html>
