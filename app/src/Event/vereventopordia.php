@@ -60,7 +60,7 @@
             echo "<th colspan =4>Descripcion</th>\n";
             echo "</tr>";
 
-            $horaarrays = ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00'];
+            $horaarrays = ['00:00','01:00','02:00','03:00','04:00','05:00','06:00','07:00','08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00','24:00'];
             $i=0;
             echo "<tr>\n";
             while($i < sizeof($horaarrays)){
@@ -70,8 +70,8 @@
                 $i_aux = $i;
                 $hora_fin = date('H:i',strtotime("20:59:59"));
             }else{
-                $i_aux = $i + 1;
-                $hora_fin = date('H:i',strtotime("$horaarrays[$i_aux]"));
+                $i_aux = $i;
+                $hora_fin = date('H:i',strtotime("$horaarrays[$i_aux] + 59 minutes"));
             }
             echo "<th>$hora_inicio</th>";
             $query = "SELECT titulo_evento,hora FROM eventos WHERE fecha_inicio = '$date' ORDER BY hora";
