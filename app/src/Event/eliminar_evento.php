@@ -26,7 +26,7 @@
                 echo "Eliminado con exito!";
                 pg_close($link)
             ?><br>
-            <button><a href="AdminEvento.html"> Regresar </a></button>
+            <button><a href="../index.php"> Regresar </a></button>
         </center>
         
     </body>
