@@ -32,8 +32,6 @@
 		}
 		.reporte{
 			position: relative;
-			left: 950px;
-			top: 50px;
 			background-color: navy;
 			width: 200px;
 		}
@@ -50,7 +48,10 @@
 			<h4>¡Bienvenido!</h4>
 		<h3 id="idhour"> </h3>		
 		</div>
-		<button class="button reporte"><a href="adminCalendar.html">Administración del Calendario</a></button>
+		<button class="button reporte"><a href="adminCalendar.html">Administrar</a></button>
+		<button onclick="verSemana();" style="color: white;" class="button reporte">Ver Por Semana</button>
+		<br>
+		<br><br>
 		<center>	
 		  <button id="btn_minus" class="btn btn-primary" onclick="minusYear()">-</button><label id="idyear">2021</label><button id="btn_plus" class="btn btn-primary" onclick="plusYear()">+</button>
 		  <br>
@@ -153,6 +154,7 @@ var datetime = "" + currentdate.getDate() + "/"
 
 <!-- calendar handlers -->
 <script type="text/javascript">	
+	var week_number = 0;
 function getDaysInMonth(month,year) {
 	var d = new Date(year, month, 0).getDate();
  	return d;
@@ -197,14 +199,16 @@ function initCalendar(year, month){
 				        arr_of_fetched.push(parseFloat(s));
 				    }
 				}
+
+				
 				for(var i = 0, j = 1; i <= number_days_month+day_one_of_month; i++ ){
+
 		if(i==0 || i==7 || i ==7*2 || i==7*3 || i==7*4 || i==7*5){
 			html = html + '<tr class="week">';
 		}
 		if(i>= day_one_of_month && j <32){
 	
 			  if(arr_of_fetched.includes(j)){
-			  	console.log(j);
 			  	 html =  html +'<td class="dayTd" id="rw_'+j+'" onmouseover="showAddButton('+year +','+ month+','+ j+ ')" onmouseout="hideAddButton('+year +','+ month+','+ j+ ')"><div class="dayMonth">'+j+'</div><div class="row"><img onclick="addEvent('+year +','+ month+','+ j+ ')"src="./img/addicon.png" id="img_'+year+month+j+'" style="position: relative; width: 30%; height:30%; left: 15%; top:0%; display:none"></img><img onclick="viewDayEvents('+year +','+ month+','+ j+ ')" src="./img/visibility.png" id="img_v'+year+month+j+'" style="position: relative; width: 30%; height:30%; left: 30%; top:0%; display:none"></img></div><div class="row" style=" position: relative; left: 20px; top:20px; border-radius: 90%; width: 9px; height:9px; background:aqua; border: 1px solid blue; "></></td>';
 			  }
 			  else{
@@ -370,6 +374,13 @@ function initCalendar(year, month){
 			return "Diciembre";
 			break;
 		}
+	}
+	function verSemana(){
+		var n = document.getElementById("idyear").innerHTML;
+		n = parseFloat(n);
+		var month_number = document.getElementById("monthnumber").innerHTML;
+		monthnumber = parseFloat(month_number) +1;
+		location.href= './Event/showbyweek.php?month='+monthnumber+'&year='+n;
 	}
 	</script>
 
