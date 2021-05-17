@@ -3,6 +3,28 @@
         <title>
             Modificando Tipo de Evento
         </title>
+        <style>
+        button{
+            background-color: navy;
+            width: 85px;
+            height: 50px;
+            color: white;
+        }   
+        a{
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: medium;
+        }
+        .enviar{
+            background-color: navy;
+            width: 85px;
+            height: 50px;
+            color: white;
+            font-weight: bold;
+            font-size: medium;
+        }
+        </style>
     </header>
     <body>
         <center>
@@ -17,7 +39,7 @@
                     echo "<b>Nombre: </b>";
                     echo "<input type=text name=nombre value='$nombre'> <br><br>\n";
                 ?>
-                <input type="submit" value="Enviar">
+                <input class="enviar" type="submit" value="Enviar">
             </form>
             <button><a href="AdminTipoEvento.html"> Regresar</a></button>
         </center>

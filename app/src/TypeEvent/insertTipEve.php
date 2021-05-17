@@ -1,6 +1,20 @@
 <html>
     <header>
         <title> Insertado </title>
+        <style>
+        button{
+            background-color: navy;
+            width: 50px;
+            height: 50px;
+            color: white;
+        }   
+        a{
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: medium;
+        }
+        </style>
     </header>
     <body>
         <center>

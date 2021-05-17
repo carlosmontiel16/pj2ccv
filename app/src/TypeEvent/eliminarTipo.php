@@ -2,6 +2,20 @@
     <header>
         <title> Eliminar Tipo de Evento </title>
     </header>
+    <style>
+        button{
+            background-color: navy;
+            width: 85px;
+            height: 50px;
+            color: white;
+        }   
+        a{
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: medium;
+        }
+    </style>
     <body>
         <center>
             <?php
