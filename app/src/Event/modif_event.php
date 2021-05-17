@@ -91,7 +91,11 @@
                             while($line = pg_fetch_array($result,null,PGSQL_ASSOC)){
                                 $id_tipoaux = $line["id_tipo"];
                                 $nombre = $line["nombre"];
-                                echo "<option value=$id_tipo> $id_tipo = $nombre </option>";
+                                if($id_tipo == $id_tipoaux){
+                                    echo "<option selected value=$id_tipoaux> $id_tipoaux = $nombre </option>";
+                                }else{
+                                    echo "<option value=$id_tipoaux> $id_tipoaux = $nombre </option>";
+                                }
                             }
                             echo "</select>\n <br><br>";
         
@@ -117,31 +121,61 @@
                             echo "<select name=frecuencia>";
                             //echo "<option selected value='$frecuencia'>$frecuencia</option>";
                             switch ($frecuencia) {
-                                case 'Una sola vez':
-                                    $frecuencia = 'U';
+                                case 'U':
+                                    //$frecuencia = 'U';
+                                    echo "<option selected value=U>Una sola vez</option>";
+                                    echo "<option value=D>Diario</option>";
+                                    echo "<option value=S>Semanal</option>";
+                                    echo "<option value=M>Mensual</option>";
+                                    echo "<option value=A>Anual</option>";
+                                    echo "<option value=O>Dias Alternos</option>";
                                     break;
-                                case 'Diario':
-                                    $frecuencia = 'D';
+                                case 'D':
+                                    //$frecuencia = 'D';
+                                    echo "<option value=U>Una sola vez</option>";
+                                    echo "<option selected value=D>Diario</option>";
+                                    echo "<option value=S>Semanal</option>";
+                                    echo "<option value=M>Mensual</option>";
+                                    echo "<option value=A>Anual</option>";
+                                    echo "<option value=O>Dias Alternos</option>";
                                     break;
-                                case 'Semanal':
-                                    $frecuencia = 'S';
+                                case 'S':
+                                    //$frecuencia = 'S';
+                                    echo "<option value=U>Una sola vez</option>";
+                                    echo "<option value=D>Diario</option>";
+                                    echo "<option selecteed value=S>Semanal</option>";
+                                    echo "<option value=M>Mensual</option>";
+                                    echo "<option value=A>Anual</option>";
+                                    echo "<option value=O>Dias Alternos</option>";
                                     break;
-                                case 'Mensual':
-                                    $frecuencia = 'M';
+                                case 'M':
+                                    //$frecuencia = 'M';
+                                    echo "<option value=U>Una sola vez</option>";
+                                    echo "<option value=D>Diario</option>";
+                                    echo "<option value=S>Semanal</option>";
+                                    echo "<option selected value=M>Mensual</option>";
+                                    echo "<option value=A>Anual</option>";
+                                    echo "<option value=O>Dias Alternos</option>";
                                     break;
-                                case 'Anual':
-                                    $frecuencia = 'A';
+                                case 'A':
+                                    //$frecuencia = 'A';
+                                    echo "<option value=U>Una sola vez</option>";
+                                    echo "<option value=D>Diario</option>";
+                                    echo "<option value=S>Semanal</option>";
+                                    echo "<option value=M>Mensual</option>";
+                                    echo "<option selected value=A>Anual</option>";
+                                    echo "<option value=O>Dias Alternos</option>";
                                     break;
-                                case 'Dias Alternos':
-                                    $frecuencia = 'O';
+                                case 'O':
+                                    //$frecuencia = 'O';
+                                    echo "<option value=U>Una sola vez</option>";
+                                    echo "<option value=D>Diario</option>";
+                                    echo "<option value=S>Semanal</option>";
+                                    echo "<option value=M>Mensual</option>";
+                                    echo "<option value=A>Anual</option>";
+                                    echo "<option selected value=O>Dias Alternos</option>";
                                     break;
                             }
-                            echo "<option value=U>Una sola vez</option>";
-                            echo "<option value=D>Diario</option>";
-                            echo "<option value=S>Semanal</option>";
-                            echo "<option value=M>Mensual</option>";
-                            echo "<option value=A>Anual</option>";
-                            echo "<option value=O>Dias Alternos</option>";
                             echo "</select><br>";
                         ?> <br>
                     <input id="enviar" type=submit value=Enviar>

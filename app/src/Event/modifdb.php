@@ -2,6 +2,19 @@
     <header>
         <title>Modificando Evento</title>
     </header>
+    <style>
+        a{
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: medium;
+        }
+        button{
+            background-color: navy;
+            width: 150px;
+            height: 50px;
+        }
+    </style>
     <body>
         <center>
             <?php
