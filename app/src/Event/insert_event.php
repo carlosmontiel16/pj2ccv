@@ -185,13 +185,12 @@
             req.onreadystatechange = function (aEvt) {
               if (req.readyState == 4) {
                  if(req.status == 200)
-                  dump(req.responseText);
                 if(req.responseText == "true"){
                     alert("Evento agregado exitosamente");
                     location.href= '../';
                 }
                  else
-                  dump("Error loading page\n");
+                  console.log("Error loading page\n");
               }
             };
             req.send(null); 
