@@ -18,8 +18,8 @@
 		.dayMonth{
 			position: relative;
 			left: 90%;
-				width: 5%;
-				top: -35px;
+			width: 5%;
+			top: -35px;
 		}
 		.dayTd:hover{
 			background-color: lightgray;
@@ -27,23 +27,36 @@
 		.bgcontainer{
 			background-color: #e9ecef;
 		}
+		thead{
+			text-align: center;
+		}
+		.reporte{
+			position: relative;
+			left: 950px;
+			top: 50px;
+			background-color: navy;
+			width: 200px;
+		}
+		a{
+			text-decoration: none;
+			text-decoration-style: solid;
+			color: white;
+		}
 	</style>
 </head>
 <body class="bgcontainer">
 	<div style="width: 80%; height: 100%; margin-left: 10%; margin-right: 10%; background-color: white;">
 		<div  class="bgcontainer">
 			<h4>¡Bienvenido!</h4>
-		<h3 id="idhour"> </h3>
+		<h3 id="idhour"> </h3>		
 		</div>
-		
-		<center>
-	
+		<button class="button reporte"><a href="adminCalendar.html">Administración del Calendario</a></button>
+		<center>	
 		  <button id="btn_minus" class="btn btn-primary" onclick="minusYear()">-</button><label id="idyear">2021</label><button id="btn_plus" class="btn btn-primary" onclick="plusYear()">+</button>
 		  <br>
 		  <br>
 		  <button id="btn_minus" class="btn btn-primary" onclick="minusMonth()">-</button><label id="idmonth">Mayo</label><button id="btn_plus" class="btn btn-primary" onclick="plusMonth()">+</button>
 		  <div hidden="true"  id="monthnumber">4</div>
-	
 
 		<br><br>
 		<div class="calendar">
@@ -90,8 +103,6 @@
 		</div>
 		</center>
 	</div>
-
-
 </body>
 
 <!-- Init handlers-->
@@ -176,7 +187,7 @@ function initCalendar(year, month){
             req.onreadystatechange = function (aEvt) {
               if (req.readyState == 4) {
                  if(req.status == 200)
-                  dump(req.responseText);
+                  //dump(req.responseText);
                 if(req.responseText !== "false"){
                     fetched_dates = JSON.parse(req.responseText);
 
@@ -220,12 +231,6 @@ function initCalendar(year, month){
             };
             req.send(null); 
 
-
-	
-
-	
-
-
 }
 
 </script>
@@ -266,8 +271,7 @@ function initCalendar(year, month){
 	}
 	function viewDayEvents(a, m, d){
 		console.log("Ver eventos del dia");
-		location.href = "verevento.php?year="+a+"&month="+m+"&day="+d;
-
+		location.href = "./Event/vereventopordia.php?year="+a+"&month="+m+"&day="+d;
 	}
 </script>
 

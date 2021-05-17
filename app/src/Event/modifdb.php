@@ -13,18 +13,17 @@
             $fechafin = $_POST["fechafin"];
             $hora = $_POST["hora"];
             $frecuencia = $_POST["frecuencia"];
-            echo "El valor de la frecuencia es $frecuencia";
 
             $link = pg_connect("host=localhost port=5432 dbname=calendario user=postgres password=postgres") or die ("Error: Unable to connect database");
                 
-            $query = "UPDATE eventos SET id_tipo = $id_tipo,tituloevento = '$titulo', descripcion = '$descripcion', fechainicio = '$fechainicio', fechafin = '$fechafin', hora = '$hora', frecuencia='$frecuencia' WHERE id_evento = $id_evento";
+            $query = "UPDATE eventos SET id_tipo = $id_tipo,titulo_evento = '$titulo', descripcion = '$descripcion', fecha_inicio = '$fechainicio', fecha_fin = '$fechafin', hora = '$hora', frecuencia='$frecuencia' WHERE id_evento = $id_evento";
 
             $result = pg_query($link,$query) or die ("Query failed " . pg_errormessage($link));
 
             echo "Tipo Evento insertada con exito!";
             pg_close($link);
-            ?>
-            <button><a href="AdminEvento.html">Regresar</a></button>
+            ?><br><br>
+            <button><a href="../index.php">Regresar</a></button>
         </center>
     </body>
 </html>

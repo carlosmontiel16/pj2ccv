@@ -3,6 +3,31 @@
         <title>
             Eventos por tipo
         </title>
+        <style>
+            table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            }
+
+            td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+            }
+
+            tr:nth-child(even) {
+            background-color: steelblue;
+            }
+            a{
+                text-decoration: none;
+                color: white;
+            }
+            button{
+                background-color: navy;
+                width: 100px;
+                height: 50px;
+            }
+        </style>
     </header>
     <body>
         <center>
@@ -29,10 +54,10 @@
                 while($line = pg_fetch_array($result,null,PGSQL_ASSOC)){
                     $id_tipo = $line["id_tipo"];
                     $id_evento = $line["id_evento"];
-                    $tituloEvento = $line["tituloevento"];
+                    $tituloEvento = $line["titulo_evento"];
                     $descripcion = $line["descripcion"];
-                    $fechainicio = $line["fechainicio"];
-                    $fechafin = $line["fechafin"];
+                    $fechainicio = $line["fecha_inicio"];
+                    $fechafin = $line["fecha_fin"];
                     $hora = $line["hora"];
                     $frecuencia = $line["frecuencia"];
     
@@ -58,14 +83,14 @@
                         }
     
                     echo "\t<tr>\n";
-                    echo "\t\t<th>$id_evento</th>\n";
-                    //echo "\t\t<th>$id_tipo</th>\n";                 
-                    echo "\t\t<th>$tituloEvento</th>\n";
-                    echo "\t\t<th>$descripcion</th>\n";
-                    echo "\t\t<th>$fechainicio</th>\n";
-                    echo "\t\t<th>$fechafin</th>\n";
-                    echo "\t\t<th>$hora</th>\n";
-                    echo "\t\t<th>$frecuencia</th>\n";
+                    echo "\t\t<td>$id_evento</td>\n";
+                    //echo "\t\t<td>$id_tipo</td>\n";                 
+                    echo "\t\t<td>$tituloEvento</td>\n";
+                    echo "\t\t<td>$descripcion</td>\n";
+                    echo "\t\t<td>$fechainicio</td>\n";
+                    echo "\t\t<td>$fechafin</td>\n";
+                    echo "\t\t<td>$hora</td>\n";
+                    echo "\t\t<td>$frecuencia</th>\n";
                     echo "\t</tr>\n";
                 }
                 echo "</table>\n";

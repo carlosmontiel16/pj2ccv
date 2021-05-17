@@ -12,7 +12,7 @@
 
                 $link = pg_connect("host=localhost port=5432 dbname=calendario user=postgres password=postgres") or die ("Error: Unable to connect database");
                 
-                $query = "UPDATE tipoeventos SET nombre = '$nombre' WHERE id_tipo = $id_tipo";
+                $query = "UPDATE tipoevento SET nombre = '$nombre' WHERE id_tipo = $id_tipo";
 
                 $result = pg_query($link,$query) or die ("Query failed " . pg_errormessage($link));
 
