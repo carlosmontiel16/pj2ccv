@@ -22,7 +22,7 @@
 
                 $link = pg_connect("host=localhost port=5432 dbname=calendario user=postgres password=postgres") or die ("Error: Unable to connect database");
                 $query = "DELETE FROM eventos WHERE id_evento=$id_evento";
-                $result = pg_querys($link,$query) or die ("Query failed " . pg_errormessage($link));
+                $result = pg_query($link,$query) or die ("Query failed " . pg_errormessage($link));
                 echo "Eliminado con exito!";
                 pg_close($link)
             ?><br>

@@ -11,6 +11,7 @@ if(isset($_GET)){
 		
 	}
 	$olddate = date( "Y-m-d", strtotime( "$fecha -1 week" ) );
+
 	
 	
 }
@@ -87,7 +88,7 @@ if(isset($_GET)){
                     $result = pg_query($link,$query) or die ("Query failed" . pg_errormessage($link));
  
                     		echo "<tr>";
-                    		$m = $_GET["month"];
+                    		$m = date( "m", strtotime( "$current_day" ) );
                     		$a = $_GET["year"];
                     		$d = date( "d", strtotime( "$current_day" ) );
                     		echo '<td>'.date( "D", strtotime( "$current_day" ) ) .'' . date( "m-d", strtotime( "$current_day" ) ).'</td>';
@@ -133,7 +134,7 @@ if(isset($_GET)){
 	
 	function viewDayEvents(a, m, d){
 		console.log("Ver eventos del dia");
-		location.href = "./vereventopordia.php?year="+a+"&month="+m+"&day="+d;
+		location.href = "./vereventopordia.php?year="+a+"&month="+m+"&day="+d+"&from=weekview";
 	}
 
 </script>
