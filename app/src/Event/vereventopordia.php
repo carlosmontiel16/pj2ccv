@@ -66,13 +66,10 @@
             while($i < sizeof($horaarrays)){
             $hora_inicio = date('H:i',strtotime("$horaarrays[$i]"));
                 
-            if($i == 12){
-                $i_aux = $i;
-                $hora_fin = date('H:i',strtotime("20:59:59"));
-            }else{
+         
                 $i_aux = $i;
                 $hora_fin = date('H:i',strtotime("$horaarrays[$i_aux] + 59 minutes"));
-            }
+            
             echo "<th>$hora_inicio</th>";
             $query = "SELECT titulo_evento,hora FROM eventos WHERE fecha_inicio = '$date' ORDER BY hora";
             $result = pg_query($link,$query) or die ("Query failed " . pg_errormessage($link));
